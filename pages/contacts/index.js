@@ -1,29 +1,31 @@
-import { render } from "react-dom";
+import styles from '../../styles/Contacts.module.css';
+import Link from 'next/link';
 
-export default function ContactList(data) {
+const url = 'https://jsonplaceholder.typicode.com/users/'
 
-    const contacts = data.data;
+export const getStaticProps = async () => {
+    const res = await fetch(url);
+    const data = await res.json();
 
+    return {
+        props: {contacts: data}
+    }
+}
+
+const ContactList = ({ contacts }) => {
+    // console.log(contacts);
     return(
         <div>
             <h1>Contact List</h1>
-            <ul>
-                {contacts.map((contact, i) => (
-                    <li key={i}>{contact.name}</li>
-                ))}
-            </ul>
+            {contacts.map((contact) => (
+                <Link href={'/contacts/' + contact.id} key={contact.id}>
+                    <a className={styles.single}>
+                        <h3>{contact.name}</h3>
+                    </a>
+                </Link> 
+            ))}
         </div>
     )
-    
 }
 
-
-export async function getServerSideProps() {
-    const url = `https://jsonplaceholder.typicode.com/users/`
-    const req = await fetch(url);
-    const data = await req.json();
-
-    return {
-        props: {data},
-    }
-}
+export default ContactList;

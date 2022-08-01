@@ -1,22 +1,46 @@
-import { useRouter } from "next/router"
+const url = 'https://jsonplaceholder.typicode.com/users/'
 
-export default function Contacts(data) {
+export const getStaticPaths = async () => {
+    const res = await fetch(url);
+    const data = await res.json();
 
-    const router = useRouter();
-    const { id } = router.query;
-    const contact = data.data;
-    
-    return <h1>Hello, {contact.name}!</h1>
-
-    
-}
-
-export async function getServerSideProps({params}) {
-    const url = `https://jsonplaceholder.typicode.com/users/${params.id}`
-    const req = await fetch(url);
-    const data = await req.json();
+    const paths = data.map(contact => {
+        return {
+            params: { id: contact.id.toString() }
+        }
+    })
 
     return {
-        props: {data},
+        paths,
+        fallback: false
     }
 }
+
+export const getStaticProps = async (context) => {
+    const id = context.params.id
+    const res = await fetch(url+id)
+    const data = await res.json();
+
+    return {
+        props: { contact: data }
+    }
+}
+
+const Details = ({contact}) => {
+    console.log(contact);
+    
+    return(
+        <div>
+            <h1>Details</h1>
+            <h2>Hello, {contact.username}!</h2>
+            <p>
+                Name: {contact.username}<br />
+                Email: {contact.email}<br />
+                Mobile: {contact.phone}
+            </p>
+        </div>
+    )
+
+}
+
+export default Details;
