@@ -30,7 +30,7 @@ export const getStaticProps = async (context) => {
 }
 
 const Details = ({contact}) => {
-    console.log(contact);
+    // console.log(contact);
     
     return(
         <div className={styles.detailsWrapper}>
