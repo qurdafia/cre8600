@@ -12,10 +12,10 @@ export const getStaticProps = async () => {
     }
 }
 
-const ContactList = ({ contacts }) => {
+const ContactList = ({ contacts }, props) => {
     // console.log(contacts);
     return(
-        <div>
+        <div className={styles.contactsWrapper}>
             <h1>Contact List</h1>
             {contacts.map((contact) => (
                 <Link href={'/contacts/' + contact.id} key={contact.id}>

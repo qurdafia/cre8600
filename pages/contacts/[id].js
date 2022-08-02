@@ -1,3 +1,6 @@
+import Link from "next/link";
+import styles from "../../styles/Contacts.module.css";
+
 const url = 'https://jsonplaceholder.typicode.com/users/'
 
 export const getStaticPaths = async () => {
@@ -30,14 +33,19 @@ const Details = ({contact}) => {
     console.log(contact);
     
     return(
-        <div>
-            <h1>Details</h1>
+        <div className={styles.detailsWrapper}>
+            <h1>Contact Details</h1>
             <h2>Hello, {contact.username}!</h2>
             <p>
-                Name: {contact.username}<br />
+                Name: {contact.name}<br />
                 Email: {contact.email}<br />
                 Mobile: {contact.phone}
             </p>
+            <Link href={'/contacts/'}>
+                <a className={styles.button}>
+                    <h3>Back to Contacts</h3>
+                </a>
+            </Link>
         </div>
     )
 

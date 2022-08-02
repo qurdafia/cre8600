@@ -1,8 +1,29 @@
+.button {
+    background: #ffffff;
+    border-left: 8px solid #ffffff;
+    display: block;
+    padding: 2px 16px;
+    width: fit-content;
+}
+
+.button:hover {
+    background: #eee;
+    border-left: 8px solid cyan;
+}
+
+.contactsWrapper, .detailsWrapper {
+    background: #dddddd;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 20px;
+    width: 600px;
+}
+
 .single {
     padding: 2px 16px;
     background: #ffffff;
     display: block;
-    margin: 20px 10px;
+    margin-bottom: 10px;
     border-left: 8px solid #ffffff;
 }
 
